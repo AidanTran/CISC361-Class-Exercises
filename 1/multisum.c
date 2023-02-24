@@ -4,8 +4,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <pthread.h>
-#define MAX_NO_OF_THREADS 2
-#define MAX_NO_OF_ELEMENTS 100000000
+#define MAX_NO_OF_THREADS 1
+#define MAX_NO_OF_ELEMENTS 500000000
 typedef struct arg_data {
     int thread_number;
 } arg_data;

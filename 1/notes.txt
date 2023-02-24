@@ -1,0 +1,12 @@
+When the number needed to be summed was smaller, 100000000:
+both the multithreaded (2threads) and single threaded took roughly the same time. 0.16 seconds.
+If we increased the number of threads of multithread, say to 10 threads, the time increases to .25 seconds.
+
+WHen the number summed was larger, 500000000 (5x the previous):
+both the 2-threaded, and the single threaded program time and the increased to .8 seconds.
+Adding more threads to the multithreaded version only made it slower. 
+
+I was bounded by the size of memory allocated to the large array, so I couldn't go larger than 500000000,
+but I imagine if I could allocate an array of larger size it would start to become more efficient.
+
+It could also be limited by the rate at which the operating system can retrieve data from the massive array over and over again.

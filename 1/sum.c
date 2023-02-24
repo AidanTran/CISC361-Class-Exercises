@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define MAX_NO_OF_ELEMENTS 100000000
+#define MAX_NO_OF_ELEMENTS 500000000
 static long long int sum;
 static int arr[MAX_NO_OF_ELEMENTS];
 int main()
