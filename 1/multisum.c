@@ -4,14 +4,13 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <pthread.h>
-#define MAX_NO_OF_THREADS 1
-#define MAX_NO_OF_ELEMENTS 500000000
+#define MAX_NO_OF_THREADS 2
+#define MAX_NO_OF_ELEMENTS 1000000000
 typedef struct arg_data {
     int thread_number;
 } arg_data;
 //shared data on which threads will work concurrently
 //array which will be summed
-static int arr[MAX_NO_OF_ELEMENTS];
 //sum variable that will store the total sum
 static long long int sum;
 void* worker_sum(void* arg)
@@ -22,13 +21,11 @@ void* worker_sum(void* arg)
  
     //Determine the bounds
     int width = MAX_NO_OF_ELEMENTS / MAX_NO_OF_THREADS;
-    int startpart = current_thread_data->thread_number * width;
-    int endpart = startpart + width;
-    printf("Here we will sum %d to %d\n", arr[startpart], arr[endpart - 1]);
+    long long i = current_thread_data->thread_number;
     //Generate the sum
     long long current_thread_sum = 0;
-    for (int i = startpart; i < endpart; i++) {
-        current_thread_sum += arr[i];
+    for (i; i <  MAX_NO_OF_ELEMENTS; i+= MAX_NO_OF_THREADS) {
+        current_thread_sum += i + 1;
     }
  
     return current_thread_sum;
@@ -38,8 +35,6 @@ int main()
 {
     //let the array consists of first MAX_NO_OF_ELEMENTS integers,
     //1 to MAX_NO_OF_ELEMENTS
-    for (int i = 0; i < MAX_NO_OF_ELEMENTS; i++)
-        arr[i] = i + 1;
    
     //pthread objects
     pthread_t id[MAX_NO_OF_THREADS];
