@@ -100,28 +100,26 @@ temp[10], pids[10];
     }
     else
     {
-        for (int i = 1; i < num_processes; i++) {
-            int j = i;
-            while (j > 0 && arrival_time[j-1] > arrival_time[j]) {
-                int temp = arrival_time[j];
-                arrival_time[j] = arrival_time[j-1];
-                arrival_time[j-1] = temp;
-                temp = burst_time[j];
-                burst_time[j] = burst_time[j-1];
-                burst_time[j-1] = temp;
-                temp = pids[j];
-                pids[j] = pids[j-1];
-                pids[j-1] = temp;
-                j -= 1;
-            }
-        }
-
         int time = 0;
+        int rIdx = 0;
+        int qIdx = 0;
         int ready_queue[num_processes];
         for (int i = 0; i < num_processes; i++) {
             ready_queue[i] = -1;
         }
-
+        
+        while (true) {
+            for (int i = 0; i < num_processes; i++) { // Quantum check
+                if (arrival_time[i] <= time) {
+                    ready_queue[rIdx] = i;
+                    rIdx++;
+                }
+            }
+            while (ready_queue[qIdx] == -1) {
+                
+            }
+            time += time_quantum;
+        }
        
     }
     // Calculate & Print Average Wait and Turnaround Times
