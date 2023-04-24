@@ -100,25 +100,44 @@ temp[10], pids[10];
     }
     else
     {
-        int time = 0;
-        int rIdx = 0;
-        int qIdx = 0;
-        int ready_queue[num_processes];
-        for (int i = 0; i < num_processes; i++) {
-            ready_queue[i] = -1;
+        int curr_time = 0;
+        // Sort by arrival time.
+        for (int i = 1; i < num_processes; i++) {
+            int j = i;
+            while (j > 0 && arrival_time[j-1] > arrival_time[j]) {
+                int temp = arrival_time[j];
+                arrival_time[j] = arrival_time[j-1];
+                arrival_time[j-1] = temp;
+                temp = burst_time[j];
+                burst_time[j] = burst_time[j-1];
+                burst_time[j-1] = temp;
+                temp = pids[j];
+                pids[j] = pids[j-1];
+                pids[j-1] = temp;
+                j -= 1;
+            }
         }
-        
         while (true) {
-            for (int i = 0; i < num_processes; i++) { // Quantum check
-                if (arrival_time[i] <= time) {
-                    ready_queue[rIdx] = i;
-                    rIdx++;
+            for (int i = 0; i < num_processes; i++) {
+                if (curr_time >= arrival_time[i] && burst_time[i] > 0) {
+                    if (time_quantum <= burst_time[i]) {
+                        burst_time[i] -= time_quantum;
+                        curr_time += time_quantum;
+                    } else {
+                        curr_time += burst_time[i];
+                        burst_time[i] = 0;
+                    }
                 }
             }
-            while (ready_queue[qIdx] == -1) {
-                
+
+            bool break_flag = true;
+            for (int i = 0; i < num_processes; i++) {
+                if (burst_time[i] > 0) { 
+                    break_flag = false;
+                    break;
+                }
             }
-            time += time_quantum;
+            if (break_flag) { break; }
         }
        
     }
