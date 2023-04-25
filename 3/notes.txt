@@ -1,0 +1,9 @@
+When changing the values of num producer and num comsumer, it does not work as expected.
+If the number of producers and consumers is equal, then it works as expected.
+But if either value is zero, or the they're not equal. then the program will get stuck waiting 
+on a semaphore that will never be signaled.
+
+The program expects each producer and each consumer to produce/consume 10 items.
+If the expected number of items are not equal, then the program will 
+fill up or empty the queue (depending on which one has more), and then wait forever on 
+its respective semaphore. 
