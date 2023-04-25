@@ -1,0 +1,12 @@
+7. Since this simulation does not include costs due to context switching, we avoid a significant downside of the round robin scheduler.
+From my testing it seems that on average is able to achieve a lower average turnaround time due to be able to avoid the convoy affect.
+
+8. Since FCFS is completely dependent on the arrival time of the processes, it varies in performance much more than the round_robin_algorithm.
+But if the shorter processes arrive before the longer ones, then FCFS has better wait time and turnaround time. 
+If there is long processes followed by multiple short processes, round robin will have lower average wait and turnaround time.
+Generally speaking, round robin performs better with dynamic loads, 
+and fcfs will perform better with well-balanced loads.
+
+9. If all processes have burst times shorter than the time quantum, then round robin degrades into FCFS. 
+To fix this, try simulating the round robin algorithm with lower values of time_quantum, and choose the one that
+gives the best turnaround time for your processes.
